@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { fetchMovies } from "@/lib/fetcher";
 import { Movie } from "@/types/movie";
+import { MovieCard } from "@/components/movie/MovieCard";
+
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -51,21 +53,10 @@ export default function Home() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-6">
         {movies?.map((movie) => (
-          <div
-            key={movie.imdbID}
-            className="border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition text-center"
-          >
-            <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.png"}
-              alt={movie.Title}
-              className="w-full h-56 object-cover rounded-md"
-            />
-
-            <h3 className="font-semibold mt-3">{movie.Title}</h3>
-            <p className="text-gray-500">{movie.Year}</p>
-          </div>
+          <MovieCard key={movie.imdbID} movie={movie} />
         ))}
       </div>
+
     </main>
   );
 }
