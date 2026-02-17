@@ -2,8 +2,13 @@ export interface Movie {
   Title: string;
   Year: string;
   imdbID: string;
-  Type: "movie" | "series" | "episode";
+  Type: string;
   Poster: string;
+
+  Genre?: string;
+  Director?: string;
+  Actors?: string;
+  Plot?: string;
 }
 
 export interface MovieSearchResponse {
