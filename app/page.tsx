@@ -16,8 +16,8 @@ export default function Home() {
 
     const data = await fetchMovies(query);
 
-    if (data.Response === "False") {
-      setError(data.Error ?? "Erro desconhecido");
+    if (data?.Response === "False") {
+      setError(data?.Error ?? "Erro desconhecido");
       setMovies([]);
     } else {
       setMovies(data.Search ?? []);
@@ -27,69 +27,42 @@ export default function Home() {
   }
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>🎬 Busca de Filmes</h1>
+    <main className="p-8 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">🎬 Busca de Filmes</h1>
 
-      <div style={{ marginTop: "1rem" }}>
+      <div className="flex gap-2 mb-6">
         <input
           placeholder="Digite o nome do filme"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          style={{
-            padding: "0.5rem",
-            width: "250px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-          }}
+          className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:ring-2 focus:ring-blue-500 outline-none"
         />
+
         <button
           onClick={handleSearch}
-          style={{
-            marginLeft: "0.5rem",
-            padding: "0.5rem 1rem",
-            borderRadius: "4px",
-            background: "#0e6cff",
-            border: "none",
-            color: "white",
-          }}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
           Buscar
         </button>
       </div>
 
-      {loading && <p>Carregando...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <p className="text-gray-600">Carregando...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
-      <div
-        style={{
-          marginTop: "2rem",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-          gap: "1rem",
-        }}
-      >
-        {movies.map((movie) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-6">
+        {movies?.map((movie) => (
           <div
             key={movie.imdbID}
-            style={{
-              padding: "1rem",
-              borderRadius: "8px",
-              border: "1px solid #ddd",
-              textAlign: "center",
-            }}
+            className="border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition text-center"
           >
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.png"}
               alt={movie.Title}
-              style={{
-                width: "100%",
-                height: "220px",
-                objectFit: "cover",
-                borderRadius: "6px",
-              }}
+              className="w-full h-56 object-cover rounded-md"
             />
-            <h3 style={{ marginTop: "0.5rem" }}>{movie.Title}</h3>
-            <p>{movie.Year}</p>
+
+            <h3 className="font-semibold mt-3">{movie.Title}</h3>
+            <p className="text-gray-500">{movie.Year}</p>
           </div>
         ))}
       </div>
