@@ -6,18 +6,26 @@ export async function fetchMovies(query: string): Promise<MovieSearchResponse> {
   }
 
   const res = await fetch(`/api/movies?q=${query}`);
+
+  if (!res.ok) {
+    throw new Error("Erro ao buscar filmes");
+  }
+
   return res.json();
 }
 
-export async function fetchMovieById(id: string) {
+export async function fetchMovieById(id: string): Promise<Movie | null> {
   if (!id) return null;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies?id=${id}`);
+  const res = await fetch(`/api/movies?id=${id}`);
+
+  if (!res.ok) {
+    throw new Error("Erro ao buscar filme");
+  }
+
   const data = await res.json();
 
   if (data.Response === "False") return null;
 
   return data;
 }
-
-
