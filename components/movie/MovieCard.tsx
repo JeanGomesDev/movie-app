@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Movie } from "@/types/movie";
+import { slugify } from "@/lib/slug";
+
 
 interface MovieCardProps {
   movie: Movie;
@@ -7,7 +9,7 @@ interface MovieCardProps {
 
 export function MovieCard({ movie }: MovieCardProps) {
   return (
-    <Link href={`/movie/${movie.imdbID}`}>
+    <Link href={`/movie/${slugify(movie.Title)}?id=${movie.imdbID}`}>
       <div className="border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md transition text-center cursor-pointer">
         <img
           src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.png"}

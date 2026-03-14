@@ -1,7 +1,13 @@
 import { fetchMovieById } from "@/lib/fetcher";
 
-export default async function MoviePage(props: { params: { id: string } }) {
-  const { id } = await props.params;
+export default async function MoviePage({
+  params,
+  searchParams
+}: {
+  params: { slug: string };
+  searchParams: { id: string };
+}) {
+  const id = searchParams.id;
 
   const movie = await fetchMovieById(id);
 
@@ -38,5 +44,5 @@ export default async function MoviePage(props: { params: { id: string } }) {
         </div>
       </div>
     </main>
-  );
+  )
 }
